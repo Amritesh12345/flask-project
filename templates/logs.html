@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Logs</title>
+</head>
+<body>
+    <h1>Chat Logs</h1>
+    <ul>
+        {% for log in logs %}
+        <li>
+            <strong>User:</strong> {{ log.user_message }}<br>
+            <strong>Bot:</strong> {{ log.bot_response }}<br>
+            <em>Timestamp: {{ log.timestamp }}</em>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

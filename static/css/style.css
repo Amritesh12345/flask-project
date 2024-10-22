@@ -1,0 +1,180 @@
+/* General CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+}
+
+.brown-bar {
+    width: 60px;
+    background-color: #663300;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    align-items: center;
+}
+
+.brown-bar img {
+    width: 40px;
+    height: 40px;
+    margin: 10px 0;
+}
+
+.top-half img,
+.bottom-half img {
+    display: block;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar (left side) */
+.sidebar {
+    width: 290px;
+    background-color: #E0E0E0;
+    padding: 20px;
+    overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+}
+
+.sidebar .logo img {
+    width: 60%;
+    margin-bottom: 20px;
+}
+
+/* Chat history section */
+.chat-history {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.chat-entry {
+    padding: 10px;
+    background-color: #FFF;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.chat-entry h4 {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.chat-message {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.chat-message strong {
+    color: #333;
+}
+
+.chat-history::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-history::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.chat-history::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Main content (right side) */
+.content {
+    flex-grow: 1;
+    padding: 0;
+    background-color: #FFF;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.content h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+    background-color: #FFB600;
+    padding: 15px;
+    border-radius: 0;
+}
+
+.content p {
+    margin: 30px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Result section */
+.result-section {
+    margin-top: 40px;
+    background-color: #F4F4F4;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.result-title h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.result-content {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #DDD;
+}
+
+/* Ad form styling */
+.ad-form {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: #FFF;
+}
+
+.ad-form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.ad-form textarea, 
+.ad-form input, 
+.ad-form select {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #E0E0E0;
+    color: #333;
+}
+
+.analyze-btn {
+    padding: 15px;
+    background-color: #663300;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}

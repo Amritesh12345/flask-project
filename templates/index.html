@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Copy Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="brown-bar">
+        <div class="top-half">
+            <img src="{{ url_for('static', filename='img/img1.png') }}" alt="Icon 1">
+            <img src="{{ url_for('static', filename='img/img2.png') }}" alt="Icon 2">
+            <img src="{{ url_for('static', filename='img/img3.png') }}" alt="Icon 3">
+            <img src="{{ url_for('static', filename='img/img4.png') }}" alt="Icon 4">
+            <img src="{{ url_for('static', filename='img/img5.png') }}" alt="Icon 5">
+            <img src="{{ url_for('static', filename='img/img6.png') }}" alt="Icon 6">
+        </div>
+        <div class="bottom-half">
+            <img src="{{ url_for('static', filename='img/img7.png') }}" alt="Icon 7">
+            <img src="{{ url_for('static', filename='img/img8.png') }}" alt="Icon 8">
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar (gray area) with chat logs -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/auburn-logo.png') }}" alt="Auburn Digital Solutions Logo">
+            </div>
+
+            <!-- Chat log section -->
+            <div class="chat-history">
+                <h3>Previous Chats</h3>
+                <ul class="chat-log-list">
+                    {% for log in logs %}
+                        <li class="chat-entry">
+                            <h4>User:</h4>
+                            <p class="chat-message">{{ log.user_message }}</p>
+                            <h4>Bot:</h4>
+                            <p class="chat-message">{{ log.bot_response }}</p>
+                            <small>{{ log.timestamp }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+
+        <main class="content">
+            <h1>Ad Copy Analyzer: Optimize Your Ads Instantly</h1>
+            <p>To use the Ad Copy Analyzer, paste your ad copy and click "Analyze".</p>
+
+            <form class="ad-form" id="ad-form">
+                <label for="ad-copy">Ad Copy:</label>
+                <textarea id="ad-copy" name="adCopy" placeholder="Enter your ad copy here..." required></textarea>
+
+                <label for="industry">Industry:</label>
+                <input type="text" id="industry" name="industry" placeholder="e.g. Finance, Retail" required>
+
+                <label for="landing-page">Landing Page URL:</label>
+                <input type="url" id="landing-page" name="landingPage">
+
+                <label for="tone">Choose a tone:</label>
+                <select id="tone" name="tone">
+                    <option value="Friendly" selected>Friendly</option>
+                    <option value="Professional">Professional</option>
+                </select>
+
+                <button type="submit" class="analyze-btn">Analyze Ad Copy</button>
+            </form>
+
+            <div class="result-section" id="result-section">
+                <div class="result-title">
+                    <h2>Analysis Result</h2>
+                </div>
+                <div class="result-content" id="result-content"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('ad-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+
+            const adCopy = document.getElementById('ad-copy').value;
+            const industry = document.getElementById('industry').value;
+            const landingPage = document.getElementById('landing-page').value;
+            const tone = document.getElementById('tone').value;
+
+            if (!adCopy || !industry || !tone) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            const formData = { adCopy, industry, landingPage, tone };
+
+            console.log("Sending formData:", formData);  
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById('result-content').innerHTML = `
+                        <p><strong>Original Copy:</strong> ${result.originalCopy}</p>
+                        <p><strong>Tone:</strong> ${result.tone}</p>
+                        <p><strong>Strengths:</strong> ${result.strengths}</p>
+                        <p><strong>Weaknesses:</strong> ${result.weaknesses}</p>
+                        <p><strong>Revised Copy:</strong> ${result.revisedCopy}</p>
+                    `;
+                } else {
+                    console.error('Failed to analyze ad copy:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error occurred during fetch:', error);
+            }
+        });
+    </script>
+</body>
+</html>

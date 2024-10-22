@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ad Copy Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-page">
+    <div class="brown-bar">
+        <div class="top-half">
+            <img src="{{ url_for('static', filename='img/img1.png') }}" alt="Icon 1">
+            <img src="{{ url_for('static', filename='img/img2.png') }}" alt="Icon 2">
+            <img src="{{ url_for('static', filename='img/img3.png') }}" alt="Icon 3">
+            <img src="{{ url_for('static', filename='img/img4.png') }}" alt="Icon 4">
+            <img src="{{ url_for('static', filename='img/img5.png') }}" alt="Icon 5">
+            <img src="{{ url_for('static', filename='img/img6.png') }}" alt="Icon 6">
+        </div>
+        <div class="bottom-half">
+            <img src="{{ url_for('static', filename='img/img7.png') }}" alt="Icon 7">
+            <img src="{{ url_for('static', filename='img/img8.png') }}" alt="Icon 8">
+        </div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/auburn-logo.png') }}" alt="Auburn Digital Solutions Logo">
+            </div>
+        </aside>
+
+        <main class="content">
+            <h1>Login to Ad Copy Analyzer</h1>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <button type="submit" class="analyze-btn">Login</button>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    alert('Invalid username or password');
+                }
+            } catch (error) {
+                console.error('Error occurred during login:', error);
+            }
+        });
+    </script>
+</body>
+</html>
